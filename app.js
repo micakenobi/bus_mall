@@ -27,8 +27,7 @@ function initalize(){
   completeCatalog.push(new Item('dragon', 'img/dragon.jpg'));
   completeCatalog.push(new Item('pen', 'img/pen.jpg'));
   completeCatalog.push(new Item('pet-sweep', 'img/pet-sweep.jpg'));
-  completeCatalog.push(new Item('sissors', 'img/sissors.jpg'));
-  completeCatalog.push(new Item('shark', 'img/shark.jpg'));
+  completeCatalog.push(new Item('scissors', 'img/scissors.jpg'));
   completeCatalog.push(new Item('shark', 'img/shark.jpg'));
   completeCatalog.push(new Item('sweep', 'img/sweep.png'));
   completeCatalog.push(new Item('tauntaun', 'img/tauntaun.jpg'));
@@ -36,7 +35,7 @@ function initalize(){
   completeCatalog.push(new Item('usb', 'img/usb.gif'));
   completeCatalog.push(new Item('water-can', 'img/water-can.jpg'));
   completeCatalog.push(new Item('wine-glass', 'img/wine-glass.jpg'));
-  console.log(completeCatalog);
+  pickNewItems();
 }
 initalize();
 
