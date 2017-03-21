@@ -65,10 +65,11 @@ function checkChoosenItem(inputArray, newItem){
 function pickNewItems(){
   totalCount -= 1;
   var tempArray = [];
-  for (var i = 0; i < 2; i++) {
+  for (var i = 0; i < 3; i++) {
     var picker = Math.floor(Math.random() * completeCatalog.length);
     if (checkChoosenItem(tempArray, completeCatalog[picker])) {
       tempArray.push(completeCatalog[picker]);
+      completeCatalog[picker].times += 1;
     }
     else {
       i -= 1;
@@ -77,31 +78,49 @@ function pickNewItems(){
 
   var pickOne = document.getElementById(currentImage1);
   pickOne.setAttribute('src', tempArray[0].path);
-  pickOne.setAttribute('id', tempArray[0].path);
+  pickOne.setAttribute('id', tempArray[0].name);
   pickOne.addEventListener('click', handleClick);
-  currentImage1 = tempArray[0].path;
+  currentImage1 = tempArray[0].name;
 
   var pickTwo = document.getElementById(currentImage2);
   pickTwo.setAttribute('src', tempArray[1].path);
-  pickTwo.setAttribute('id', tempArray[1].path);
+  pickTwo.setAttribute('id', tempArray[1].name);
   pickTwo.addEventListener('click', handleClick);
-  currentImage2 = tempArray[1].path;
+  currentImage2 = tempArray[1].name;
 
   var pickThree = document.getElementById(currentImage3);
   pickThree.setAttribute('src', tempArray[2].path);
-  pickThree.setAttribute('id', tempArray[2].path);
+  pickThree.setAttribute('id', tempArray[2].name);
   pickThree.addEventListener('click', handleClick);
-  currentImage3 = tempArray[2].path;
+  currentImage3 = tempArray[2].name;
 }
 
 function calculateScore(inputID){
+  for (var i = 0; i < completeCatalog.length; i++) {
+    if (completeCatalog[i].name === inputID) {
+      completeCatalog[i].totalClick += 1;
+    }
+  }
 }
 
+var parent = document.getElementById('parentId');
 function displayResults(){
   var pickOne = document.getElementById(currentImage1);
-  pickOne.remove();
-  /*remove image elements from HTML */
-  /* add display data */
-}
+  parent.removeChild(pickOne);
+  var pickTwo = document.getElementById(currentImage2);
+  parent.removeChild(pickTwo);
+  var pickThree = document.getElementById(currentImage3);
+  parent.removeChild(pickThree);
 
-displayResults();
+  var body = document.getElementsByTagName('body')[0];
+
+  for (var i = 0; i < completeCatalog.length; i++) {
+    var tempText = completeCatalog[i].totalClick;
+    var tempText2 = completeCatalog[i].times;
+    var tempText3 = completeCatalog[i].name;
+    var textNode = document.createTextNode(tempText + ' votes for the ' + tempText3);
+    body.appendChild(textNode);
+    var linebreak = document.createElement('br');
+    body.appendChild(linebreak);
+  }
+}
