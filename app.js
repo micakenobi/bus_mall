@@ -35,6 +35,14 @@ function initalize(){
   completeCatalog.push(new Item('usb', 'img/usb.gif'));
   completeCatalog.push(new Item('water-can', 'img/water-can.jpg'));
   completeCatalog.push(new Item('wine-glass', 'img/wine-glass.jpg'));
+  if (localStorage.storedArray) {
+    var parsedArray = JSON.parse(localStorage.storedArray);
+    for (var i = 0; i < parsedArray.length; i++) {
+      completeCatalog[i].times += parsedArray[i].times;
+      completeCatalog[i].totalClick += parsedArray[i].totalClick;
+    }
+  };
+
   pickNewItems();
 }
 initalize();
@@ -46,6 +54,7 @@ function handleClick (e){
     pickNewItems ();
   }
   else {
+    localStorage.storedArray = JSON.stringify(completeCatalog);
     displayResults();
   }
 }
