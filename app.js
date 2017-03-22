@@ -1,7 +1,7 @@
 'use strict';
 
 var completeCatalog = [];
-var totalCount = 25;
+var totalCount = 3;
 
 var currentImage1 = 'pic1';
 var currentImage2 = 'pic2';
@@ -103,6 +103,7 @@ function calculateScore(inputID){
 }
 
 var parent = document.getElementById('parentId');
+
 function displayResults(){
   var pickOne = document.getElementById(currentImage1);
   parent.removeChild(pickOne);
@@ -111,15 +112,39 @@ function displayResults(){
   var pickThree = document.getElementById(currentImage3);
   parent.removeChild(pickThree);
 
-  var body = document.getElementsByTagName('body')[0];
+  runAfterDataGenerated();
+}
 
+function returnsNumberOfClicksForEachObject(){
+  var ArrayOfNumberOfClicksPerItem = [];
   for (var i = 0; i < completeCatalog.length; i++) {
-    var tempText = completeCatalog[i].totalClick;
-    var tempText2 = completeCatalog[i].times;
-    var tempText3 = completeCatalog[i].name;
-    var textNode = document.createTextNode(tempText + ' votes for the ' + tempText3);
-    body.appendChild(textNode);
-    var linebreak = document.createElement('br');
-    body.appendChild(linebreak);
+    ArrayOfNumberOfClicksPerItem.push(completeCatalog[i].totalClick);
   }
+  return ArrayOfNumberOfClicksPerItem;
+}
+
+function runAfterDataGenerated (){
+  var canvas = document.getElementById('myChart');
+  var ctx = canvas.getContext('2d');
+
+  var data = {
+    labels: ['Bag','Banana','Bathroom','Boots','Breakfast','Bubblegum','Chair','Cthulhu','Dog-Duck','Dragon','Pen','Pet-sweep','Scissors','Shark','Sweep','Tautaun','Unicorn','USB','Water-can','Wine glass'],
+    datasets:[{
+      label: 'Number of times this object was clicked',
+      data: returnsNumberOfClicksForEachObject(),
+      backgroundColor: 'black',
+    }]
+  };
+
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: data,
+    options: {
+      title: {
+        display: true,
+        text: 'Results of the Image Selections',
+        fontSize: 20,
+      }
+    }
+  });
 }
