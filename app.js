@@ -1,7 +1,7 @@
 'use strict';
 
 var completeCatalog = [];
-var totalCount = 3;
+var totalCount = 25;
 
 var currentImage1 = 'pic1';
 var currentImage2 = 'pic2';
